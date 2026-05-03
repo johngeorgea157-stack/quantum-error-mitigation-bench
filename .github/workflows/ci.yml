@@ -38,5 +38,6 @@ jobs:
 
       - name: Validate imports
         run: |
+          pip install numpy scipy matplotlib
           python -c "import numpy, scipy, matplotlib"
           echo "Core imports OK"
