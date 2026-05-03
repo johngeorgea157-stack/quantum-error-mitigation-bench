@@ -5,9 +5,9 @@ matplotlib==3.8.4
 scipy==1.13.0
 
 # ── Quantum ────────────────────────────────────────────────────────
-qiskit==1.1.0
-qiskit-aer==0.14.2
-qiskit-ibm-runtime==0.24.0
+qiskit==2.4.1
+qiskit-aer==0.17.0
+qiskit-ibm-runtime==0.46.1
 
 # ── Error Mitigation / Noise Analysis ─────────────────────────────
 scikit-learn==1.5.0          # CDR linear regression
