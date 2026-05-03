@@ -1,0 +1,41 @@
+# Environments
+.env
+.venv
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints
+
+# Data / Results
+data/raw/*.json
+data/raw/*.csv
+results/raw_data/*.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+apikey.json
+
+# Docs build artifacts
+docs/_build/
+report/*.aux
+report/*.log
+report/*.out
+report/*.synctex.gz
+
+# Personal notes
+learning.md
+
+# Roadmap file
+qc Month 1.docx

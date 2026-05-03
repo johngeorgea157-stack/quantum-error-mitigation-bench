@@ -1,0 +1,64 @@
+\documentclass[11pt, a4paper]{article}
+
+% ── Packages ──────────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{natbib}
+\usepackage[margin=2.5cm]{geometry}
+
+% ── Title ─────────────────────────────────────────────────────────
+\title{Quantum Error Mitigation Benchmarking Suite:\\
+       ZNE, PEC, and CDR on Real IBM Hardware}
+\author{John George Alexander}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+% TODO: Write after completing all experiments
+% Should summarise: (1) what was benchmarked, (2) key findings,
+% (3) when each method helps/fails, (4) practical recommendations.
+\end{abstract}
+
+% ── 1. Introduction ──────────────────────────────────────────────
+\section{Introduction}
+% Background on NISQ noise, why error mitigation matters
+% Brief overview of ZNE, PEC, CDR
+
+% ── 2. Methods ───────────────────────────────────────────────────
+\section{Methods}
+
+\subsection{Zero-Noise Extrapolation (ZNE)}
+% Gate folding, Richardson extrapolation
+
+\subsection{Probabilistic Error Cancellation (PEC)}
+% Quasi-probability decomposition, sampling overhead
+
+\subsection{Clifford Data Regression (CDR)}
+% Near-Clifford training, linear regression correction
+
+% ── 3. Experimental Setup ────────────────────────────────────────
+\section{Experimental Setup}
+% IBM backend details, circuit descriptions, depth range, repetitions
+
+% ── 4. Results ───────────────────────────────────────────────────
+\section{Results}
+% Noise-vs-depth curves, comparison tables, confidence intervals
+
+% ── 5. Discussion ────────────────────────────────────────────────
+\section{Discussion}
+% When does each method win? Failure cases. Overhead trade-offs.
+
+% ── 6. Conclusion ───────────────────────────────────────────────
+\section{Conclusion}
+% Summary, practical recommendations, future work
+
+% ── References ───────────────────────────────────────────────────
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}
