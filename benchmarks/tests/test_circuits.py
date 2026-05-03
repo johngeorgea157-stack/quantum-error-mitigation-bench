@@ -7,7 +7,7 @@ Validates circuit structure:
     - Circuits are valid Qiskit QuantumCircuit objects
 """
 
-import pytest
+import pytest  # noqa: F401
 
 # TODO: Uncomment and implement after circuits.py is built
 # from benchmarks.circuits import build_test_circuit
