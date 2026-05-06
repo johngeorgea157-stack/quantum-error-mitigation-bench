@@ -19,7 +19,6 @@ from mitigation.zne import (
     richardson_extrapolate,
 )
 
-
 # ---------------------------------------------------------------------------
 # Fixtures
 # ---------------------------------------------------------------------------
@@ -139,9 +138,9 @@ class TestZNEPipeline:
         )
         noisy = result["noisy"]
         # Each successive scale should push the value closer to 0 (more noise)
-        assert noisy[0] < noisy[1] or abs(noisy[0] - noisy[1]) < 0.05, (
-            "λ=3 value should be >= λ=1 (less negative) within shot noise tolerance"
-        )
+        assert (
+            noisy[0] < noisy[1] or abs(noisy[0] - noisy[1]) < 0.05
+        ), "λ=3 value should be >= λ=1 (less negative) within shot noise tolerance"
 
     def test_mitigate_reduces_error_vs_raw(self, test_circuit, ideal_sim, noisy_sim):
         """ZNE mitigated value should be at least as close to ideal as raw noisy."""

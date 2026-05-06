@@ -20,10 +20,10 @@ from qiskit_aer import AerSimulator
 
 from mitigation.base import Mitigator
 
-
 # ---------------------------------------------------------------------------
 # Module-level helpers (importable by notebook and tests)
 # ---------------------------------------------------------------------------
+
 
 def fold_gates(circuit, scale_factor):
     """
@@ -136,6 +136,7 @@ def richardson_extrapolate(scales, values, poly_degree=2):
 # ---------------------------------------------------------------------------
 # ZNEMitigator class
 # ---------------------------------------------------------------------------
+
 
 class ZNEMitigator(Mitigator):
     """Zero-Noise Extrapolation via gate folding + Richardson extrapolation."""
