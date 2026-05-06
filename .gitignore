@@ -36,6 +36,7 @@ report/*.synctex.gz
 
 # Personal notes
 learning.md
+.agent.md
 
 # Roadmap file
 qc Month 1.docx
