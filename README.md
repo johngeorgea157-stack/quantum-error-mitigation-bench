@@ -97,9 +97,10 @@ flowchart TD
 - [x] **ZNE**: Implement noise scaling via gate folding (`mitigation/zne.py` — `fold_gates()`)
 - [x] **ZNE**: Implement Richardson extrapolation (`mitigation/zne.py` — `richardson_extrapolate()`)
 - [x] **ZNE**: Test on simple 2-qubit circuits — 14/14 tests passing ✅
-- [ ] **PEC**: Implement quasi-probability decomposition
-- [ ] **PEC**: Build noise-inverse channel from characterisation data
-- [ ] **PEC**: Document sampling overhead
+- [x] **PEC**: Implement quasi-probability decomposition (`mitigation/pec.py` — `quasi_probability_decomposition()`)
+- [x] **PEC**: Build noise-inverse channel from Choi matrices (`mitigation/pec.py` — `compute_choi_matrix_*()`)
+- [x] **PEC**: Implement PEC sampling procedure with overhead analysis ✅
+- [x] **PEC**: Document exponential sampling overhead (practical only for shallow circuits)
 - [ ] **CDR**: Generate near-Clifford training circuits
 - [ ] **CDR**: Fit linear regression (noisy → exact)
 - [ ] **CDR**: Apply learned correction to target circuit
@@ -147,16 +148,16 @@ Quantum Error Mitigation Benchmarking Suite/
 ├── mitigation/
 │   ├── __init__.py                   # Package init — exports all mitigator classes
 │   ├── base.py                       # Abstract Mitigator base class interface
-│   ├── zne.py                        # Zero-Noise Extrapolation: gate folding + Richardson extrap.
-│   ├── pec.py                        # Probabilistic Error Cancellation: quasi-prob decomposition
+│   ├── zne.py                        # Zero-Noise Extrapolation: gate folding + Richardson extrap. ✅
+│   ├── pec.py                        # Probabilistic Error Cancellation: quasi-prob decomposition ✅
 │   ├── cdr.py                        # Clifford Data Regression: near-Clifford training + regression
-│   ├── zne_demo.ipynb                # 📓 ZNE exploration: noise scaling, extrapolation curves
-│   ├── pec_demo.ipynb                # 📓 PEC exploration: decomposition, overhead analysis
+│   ├── zne_demo.ipynb                # 📓 ZNE exploration: noise scaling, extrapolation curves ✅
+│   ├── pec_demo.ipynb                # 📓 PEC exploration: decomposition, overhead analysis ✅
 │   ├── cdr_demo.ipynb                # 📓 CDR exploration: training circuits, regression fit
 │   └── tests/
 │       ├── __init__.py
-│       ├── test_zne.py               # ZNE: 14 tests — gate folding, Richardson extrapolation, full pipeline ✅
-│       ├── test_pec.py               # PEC correctness + overhead bounds
+│       ├── test_zne.py               # ZNE: 14 tests — gate folding, Richardson extrapolation ✅
+│       ├── test_pec.py               # PEC: 15 tests — quasi-prob decomposition, overhead, pipeline ✅
 │       └── test_cdr.py               # CDR regression fit quality
 │
 ├── benchmarks/
@@ -223,7 +224,7 @@ pytest --tb=short
 
 ## 📊 Results
 
-> ⏳ Hardware results will be populated after Phase 3 (Day 8). Simulator validation results from Day 4 are shown below.
+> ⏳ Hardware results will be populated after Phase 3 (Day 8). Simulator validation results from Days 4–5 are shown below.
 
 ### Day 4 — ZNE Simulator Validation (2-qubit VQE-like ansatz, depth=2)
 
@@ -236,16 +237,29 @@ pytest --tb=short
 | Noise model | Depolarising 0.3% (1Q), 1.5% (2Q) |
 | Scale factors | λ = 1, 3, 5 · Degree-2 Richardson fit |
 
-> The modest 1.16× improvement is expected: low-noise simulator on a shallow circuit leaves little room to extrapolate. ZNE improvement scales with hardware noise — real IBM backends (5–10× higher error rates) will produce clearer ZNE gains.
+### Day 5 — PEC Simulator Validation (2-qubit VQE-like ansatz, depth=2)
 
-### Full Benchmark Results (Phase 3 — pending)
+| Metric | Value |
+|---|---|
+| Ideal `<Z₀>` (noiseless) | **-0.9648** |
+| Raw noisy `<Z₀>` | -0.9346 (error: 0.0303) |
+| PEC mitigated `<Z₀>` | **-0.9360** (error: 0.0288) |
+| Improvement factor | **1.05×** |
+| Sampling overhead | ~1.0× (low error rate) |
+| Noise model | Depolarising 0.3% (1Q), 1.5% (2Q) |
+| Key insight | PEC modest improvement at low error rates; advantage grows on noisier hardware |
 
-| Method | Depth p=1 | Depth p=2 | Depth p=3 | Overhead | Notes |
-|---|---|---|---|---|---|
-| Raw (no mitigation) | — | — | — | 1× | Baseline |
-| ZNE (Richardson) | — | — | — | ~3× | Gate folding |
-| PEC | — | — | — | ~O(eⁿ) | High overhead |
-| CDR | — | — | — | ~(k+1)× | k training circuits |
+### Overhead Comparison: ZNE vs PEC vs CDR (from pec_demo.ipynb)
+
+| Circuit Depth | ZNE | PEC | CDR (placeholder) |
+|---|---|---|---|
+| d=2 | 3.0× | 1.0× | 5.0× |
+| d=5 | 3.0× | 1.01× | 5.0× |
+| d=10 | 3.0× | 1.03× | 5.0× |
+| d=15 | 3.0× | 1.1× | 5.0× |
+| d=20 | 3.0× | 1.3× | 5.0× |
+
+**Key insight:** PEC overhead remains manageable on shallow circuits (d ≤ 10) but grows exponentially with depth. ZNE maintains constant 3× overhead independent of depth, making it ideal for deep circuits.
 
 ---
 
