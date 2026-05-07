@@ -1,7 +1,7 @@
 # ⚛️ Quantum Error Mitigation Benchmarking Suite
 
-[![CI](https://github.com/johngeorgea157-stack/quantum-error-mitigation-bench/actions/workflows/ci.yml/badge.svg)](https://github.com/johngeorgea157-stack/quantum-error-mitigation-bench/actions/workflows/ci.yml)
-[![Tests](https://github.com/johngeorgea157-stack/quantum-error-mitigation-bench/actions/workflows/test.yml/badge.svg)](https://github.com/johngeorgea157-stack/quantum-error-mitigation-bench/actions/workflows/test.yml)
+[![CI](https://github.com/johngeorgea157-stack/quantum-error-mitigation-bench/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/johngeorgea157-stack/quantum-error-mitigation-bench/actions/workflows/ci.yml?branch=main)
+[![Tests](https://github.com/johngeorgea157-stack/quantum-error-mitigation-bench/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/johngeorgea157-stack/quantum-error-mitigation-bench/actions/workflows/test.yml?branch=main)
 [![codecov](https://codecov.io/gh/johngeorgea157-stack/quantum-error-mitigation-bench/branch/main/graph/badge.svg)](https://codecov.io/gh/johngeorgea157-stack/quantum-error-mitigation-bench)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Qiskit](https://img.shields.io/badge/Qiskit-2.x-6929C4?logo=ibm&logoColor=white)](https://qiskit.org/)
