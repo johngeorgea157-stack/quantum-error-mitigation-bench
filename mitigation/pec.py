@@ -15,7 +15,7 @@ Approach:
 """
 
 import numpy as np
-from qiskit import QuantumCircuit, ClassicalRegister
+from qiskit import ClassicalRegister
 from qiskit_aer import AerSimulator
 
 from mitigation.base import Mitigator

@@ -98,7 +98,6 @@ class TestChoiMatrices:
 
     def test_trace_monotonic_with_error(self):
         """Trace should decrease monotonically with error probability."""
-        choi_ideal = compute_choi_matrix_ideal_1q()
         traces = [
             np.trace(compute_choi_matrix_noisy_depolarizing(p)) for p in [0.001, 0.005, 0.01, 0.02]
         ]
