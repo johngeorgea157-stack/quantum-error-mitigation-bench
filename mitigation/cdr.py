@@ -45,60 +45,60 @@ def generate_near_clifford_circuit(num_qubits=2, depth=3, seed=None):
 
     qc = QuantumCircuit(num_qubits, name=f"near_clifford_{num_qubits}q_d{depth}")
 
-    clifford_gates = ['h', 's', 'sdg', 'x', 'y', 'z', 'cx', 'cz', 'swap']
+    clifford_gates = ["h", "s", "sdg", "x", "y", "z", "cx", "cz", "swap"]
 
     # Random initial state (to get varied expectation values)
     for qubit in range(num_qubits):
-        init_choice = np.random.choice(['|0⟩', '|1⟩', '|+⟩', '|-⟩'])
-        if init_choice == '|1⟩':
+        init_choice = np.random.choice(["|0⟩", "|1⟩", "|+⟩", "|-⟩"])
+        if init_choice == "|1⟩":
             qc.x(qubit)
-        elif init_choice == '|+⟩':
+        elif init_choice == "|+⟩":
             qc.h(qubit)
-        elif init_choice == '|-⟩':
+        elif init_choice == "|-⟩":
             qc.x(qubit)
             qc.h(qubit)
 
     for layer in range(depth):
         # Ensure qubit 0 gets operations
         gate = np.random.choice(clifford_gates[:-3])  # Single-qubit gates
-        if gate == 'h':
+        if gate == "h":
             qc.h(0)
-        elif gate == 's':
+        elif gate == "s":
             qc.s(0)
-        elif gate == 'sdg':
+        elif gate == "sdg":
             qc.sdg(0)
-        elif gate == 'x':
+        elif gate == "x":
             qc.x(0)
-        elif gate == 'y':
+        elif gate == "y":
             qc.y(0)
-        elif gate == 'z':
+        elif gate == "z":
             qc.z(0)
 
         for qubit in range(1, num_qubits):
             # Random Clifford gate on other qubits
             gate = np.random.choice(clifford_gates[:-3])  # Single-qubit gates
-            if gate == 'h':
+            if gate == "h":
                 qc.h(qubit)
-            elif gate == 's':
+            elif gate == "s":
                 qc.s(qubit)
-            elif gate == 'sdg':
+            elif gate == "sdg":
                 qc.sdg(qubit)
-            elif gate == 'x':
+            elif gate == "x":
                 qc.x(qubit)
-            elif gate == 'y':
+            elif gate == "y":
                 qc.y(qubit)
-            elif gate == 'z':
+            elif gate == "z":
                 qc.z(qubit)
 
         # Random 2-qubit Clifford gates
         for qubit in range(num_qubits - 1):
             if np.random.random() < 0.5:  # 50% chance
                 gate = np.random.choice(clifford_gates[-3:])  # 2-qubit gates
-                if gate == 'cx':
+                if gate == "cx":
                     qc.cx(qubit, qubit + 1)
-                elif gate == 'cz':
+                elif gate == "cz":
                     qc.cz(qubit, qubit + 1)
-                elif gate == 'swap':
+                elif gate == "swap":
                     qc.swap(qubit, qubit + 1)
 
     return qc
@@ -126,7 +126,7 @@ def generate_training_set(num_circuits=50, num_qubits=2, max_depth=5):
     return training_circuits
 
 
-def simulate_circuit_expectation(circuit, simulator, shots=2048, observable='Z0'):
+def simulate_circuit_expectation(circuit, simulator, shots=2048, observable="Z0"):
     """
     Simulate a circuit and compute expectation value of an observable.
 
@@ -143,10 +143,10 @@ def simulate_circuit_expectation(circuit, simulator, shots=2048, observable='Z0'
     qc = circuit.remove_final_measurements(inplace=False)
 
     # Add measurement for the observable
-    if observable.startswith('Z'):
+    if observable.startswith("Z"):
         qubit_idx = int(observable[1:])
         if qc.num_clbits == 0:
-            qc.add_register(ClassicalRegister(qc.num_qubits, 'c'))
+            qc.add_register(ClassicalRegister(qc.num_qubits, "c"))
         qc.measure(qubit_idx, qubit_idx)
 
         # Run simulation
@@ -157,12 +157,12 @@ def simulate_circuit_expectation(circuit, simulator, shots=2048, observable='Z0'
         total_shots = sum(counts.values())
         # Note: Qiskit bit ordering - bits[0] is highest qubit, bits[-1] is lowest
         qubit_bit_idx = -(qubit_idx + 1)  # qubit 0 -> bits[-1], qubit 1 -> bits[-2]
-        prob_0 = sum(
-            cnt for bits, cnt in counts.items() if bits[qubit_bit_idx] == '0'
-        ) / total_shots
-        prob_1 = sum(
-            cnt for bits, cnt in counts.items() if bits[qubit_bit_idx] == '1'
-        ) / total_shots
+        prob_0 = (
+            sum(cnt for bits, cnt in counts.items() if bits[qubit_bit_idx] == "0") / total_shots
+        )
+        prob_1 = (
+            sum(cnt for bits, cnt in counts.items() if bits[qubit_bit_idx] == "1") / total_shots
+        )
 
         expectation = prob_0 - prob_1
         return expectation

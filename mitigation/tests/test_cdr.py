@@ -112,15 +112,15 @@ class TestCDRMitigator:
 
         result = cdr.fit(noisy_sim, ideal_sim)
 
-        assert 'slope' in result
-        assert 'intercept' in result
-        assert 'r2_score' in result
-        assert 'training_circuits' in result
+        assert "slope" in result
+        assert "intercept" in result
+        assert "r2_score" in result
+        assert "training_circuits" in result
 
-        assert isinstance(result['slope'], (int, float))
-        assert isinstance(result['intercept'], (int, float))
-        assert isinstance(result['r2_score'], (int, float))
-        assert len(result['training_circuits']) == 5
+        assert isinstance(result["slope"], (int, float))
+        assert isinstance(result["intercept"], (int, float))
+        assert isinstance(result["r2_score"], (int, float))
+        assert len(result["training_circuits"]) == 5
 
         # Should set internal state
         assert cdr.slope is not None
@@ -159,20 +159,20 @@ class TestCDRMitigator:
         backend = AerSimulator()
         result = cdr.mitigate(circuit, backend=backend)
 
-        assert 'mitigated' in result
-        assert 'noisy' in result
-        assert 'slope' in result
-        assert 'intercept' in result
+        assert "mitigated" in result
+        assert "noisy" in result
+        assert "slope" in result
+        assert "intercept" in result
 
-        assert isinstance(result['mitigated'], (int, float))
-        assert isinstance(result['noisy'], (int, float))
+        assert isinstance(result["mitigated"], (int, float))
+        assert isinstance(result["noisy"], (int, float))
 
     def test_mitigate_with_noise(self):
         """Test mitigation on noisy simulator."""
         # Create noise model
         noise_model = NoiseModel()
         error = depolarizing_error(0.01, 1)  # Small noise
-        noise_model.add_all_qubit_quantum_error(error, ['u2', 'u3'])
+        noise_model.add_all_qubit_quantum_error(error, ["u2", "u3"])
 
         noisy_sim = AerSimulator(noise_model=noise_model)
         ideal_sim = AerSimulator()
@@ -189,7 +189,8 @@ class TestCDRMitigator:
         result = cdr.mitigate(circuit, backend=noisy_sim)
 
         # Check that mitigation is attempted (CDR may not always improve)
-        assert isinstance(result['mitigated'], (int, float))
-        assert isinstance(result['noisy'], (int, float))
+        assert isinstance(result["mitigated"], (int, float))
+        assert isinstance(result["noisy"], (int, float))
         assert cdr.r2_score > 0.0  # Should have some fit (may not be great)
+
     # def test_cdr_corrects_noisy_value(self):
