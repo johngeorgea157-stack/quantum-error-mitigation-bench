@@ -101,14 +101,14 @@ flowchart TD
 - [x] **PEC**: Build noise-inverse channel from Choi matrices (`mitigation/pec.py` — `compute_choi_matrix_*()`)
 - [x] **PEC**: Implement PEC sampling procedure with overhead analysis ✅
 - [x] **PEC**: Document exponential sampling overhead (practical only for shallow circuits)
-- [ ] **CDR**: Generate near-Clifford training circuits
-- [ ] **CDR**: Fit linear regression (noisy → exact)
-- [ ] **CDR**: Apply learned correction to target circuit
+- [x] **CDR**: Generate near-Clifford training circuits
+- [x] **CDR**: Fit linear regression (noisy → exact)
+- [x] **CDR**: Apply learned correction to target circuit
 
 ### 🔌 Phase 3 — Interface + Hardware `Days 7–8`
 - [x] Design abstract `Mitigator` base class (`mitigation/base.py`)
 - [x] Implement: `ZNEMitigator` (Day 4 ✅) · `PECMitigator` (Day 5) · `CDRMitigator` (Day 6)
-- [ ] Write unit tests for each — correctness on simulator first
+- [x] Write unit tests for each — correctness on simulator first
 - [ ] Submit all 3 mitigators to IBM backend
 - [ ] Run 5+ circuit depths per mitigator
 - [ ] Collect raw + mitigated expectation values
