@@ -17,7 +17,7 @@ Approach:
 """
 
 import numpy as np
-from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
+from qiskit import QuantumCircuit, ClassicalRegister
 from qiskit_aer import AerSimulator
 from sklearn.linear_model import LinearRegression
 
@@ -157,8 +157,12 @@ def simulate_circuit_expectation(circuit, simulator, shots=2048, observable='Z0'
         total_shots = sum(counts.values())
         # Note: Qiskit bit ordering - bits[0] is highest qubit, bits[-1] is lowest
         qubit_bit_idx = -(qubit_idx + 1)  # qubit 0 -> bits[-1], qubit 1 -> bits[-2]
-        prob_0 = sum(cnt for bits, cnt in counts.items() if bits[qubit_bit_idx] == '0') / total_shots
-        prob_1 = sum(cnt for bits, cnt in counts.items() if bits[qubit_bit_idx] == '1') / total_shots
+        prob_0 = sum(
+            cnt for bits, cnt in counts.items() if bits[qubit_bit_idx] == '0'
+        ) / total_shots
+        prob_1 = sum(
+            cnt for bits, cnt in counts.items() if bits[qubit_bit_idx] == '1'
+        ) / total_shots
 
         expectation = prob_0 - prob_1
         return expectation
